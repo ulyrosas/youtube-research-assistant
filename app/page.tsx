@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { useChat } from '@ai-sdk/react';
+import { DefaultChatTransport } from 'ai';
+
+const BASE_PATH = '/youtube-research-assistant';
 
 type Analysis = {
   videoId: string;
@@ -18,13 +21,15 @@ export default function Home() {
   const [error, setError] = useState('');
   const [seekTo, setSeekTo] = useState(0);
 
-  const { messages, sendMessage, status } = useChat();
+  const { messages, sendMessage, status } = useChat({
+    transport: new DefaultChatTransport({ api: `${BASE_PATH}/api/chat` }),
+  });
 
   async function analyze() {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('/api/analyze', {
+      const res = await fetch(`${BASE_PATH}/api/analyze`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url }),
