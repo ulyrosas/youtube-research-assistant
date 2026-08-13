@@ -12,6 +12,7 @@
   "dependencies": {
     "ai": "^7.0.64",
     "@ai-sdk/openai": "^4.0.41",
+    "@ai-sdk/groq": "^4.0.28",
     "@ai-sdk/react": "^4.0.67",
     "next": "^15.0.0",
     "react": "^19.0.0",

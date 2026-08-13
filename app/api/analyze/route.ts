@@ -1,7 +1,7 @@
 import { generateText, Output } from 'ai';
-import { openai } from '@ai-sdk/openai';
 import { z } from 'zod';
 import { extractVideoId, fetchTranscript, formatTranscriptForPrompt } from '@/lib/transcript';
+import { model } from '@/lib/model';
 
 // ponytail: whole transcript stuffed into context, chunked retrieval if videos routinely blow the context window
 const analysisSchema = z.object({
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   const transcript = formatTranscriptForPrompt(segments);
 
   const { output } = await generateText({
-    model: openai('gpt-4o-mini'),
+    model,
     output: Output.object({ schema: analysisSchema }),
     prompt: `Transcript with timestamps:\n\n${transcript}\n\nSummarize this video, extract 4-8 chapters with timestamps (use the exact [m:ss] format from the transcript), and generate 5 study flashcards.`,
   });

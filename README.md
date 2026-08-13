@@ -12,9 +12,11 @@ No vector DB. Works for typical videos under ~2 hours; longer videos can blow th
 
 ```bash
 npm install
-cp .env.example .env.local   # add OPENAI_API_KEY
+cp .env.example .env.local   # add OPENAI_API_KEY, or GROQ_API_KEY for free testing
 npm run dev
 ```
+
+For testing without an OpenAI bill: get a free key at [console.groq.com/keys](https://console.groq.com/keys) and set `GROQ_API_KEY` — the app uses Groq automatically when it's set (see `lib/model.ts`).
 
 ## Stack
 
